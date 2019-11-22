@@ -1,6 +1,8 @@
 # dubbo-mock-test
 
 ## 感谢VIPJoey在GitHub上分享代码,原项目(https://github.com/VIPJoey/doe)
+
+## 修改的功能
 - 修改增加依赖功能（增加exclusion标签支持）
 - 升级项目中spring boot与duboo包 springboot2.18,dubbo2.7.3
 - 修改增加依赖后完成跳回依赖列表，菜单空白BUG
