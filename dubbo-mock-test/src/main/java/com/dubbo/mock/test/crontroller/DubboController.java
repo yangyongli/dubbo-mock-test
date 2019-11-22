@@ -17,6 +17,7 @@ import com.dubbo.mock.test.dto.UrlModelDTO;
 import com.dubbo.mock.test.model.ServiceModel;
 import com.dubbo.mock.test.service.ClassService;
 import com.dubbo.mock.test.service.ConnectService;
+import com.dubbo.mock.test.service.DirectConnectService;
 import com.dubbo.mock.test.service.TelnetService;
 import com.dubbo.mock.test.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,9 @@ public class DubboController {
 
     @Autowired
     private TelnetService telnetService;
+
+    @Autowired
+    private DirectConnectService directConnectService;
 
     @RequestMapping("/doSendWithTelnet")
     public ResultDTO<String> doSendWithTelnet(@NotNull ConnectDTO dto) {
@@ -195,4 +199,24 @@ public class DubboController {
         return resultDTO;
 
     }
+
+    @RequestMapping("/doDirectSend")
+    public ResultDTO<String> doDirectSend(@NotNull ConnectDTO dto) {
+
+        log.info("DubboController.doDirectSend({})", JSON.toJSONString(dto));
+
+        ResultDTO<String> resultDTO;
+
+        try {
+
+            resultDTO = directConnectService.send(dto);
+
+        } catch(Exception e) {
+
+            resultDTO = ResultDTO.createExceptionResult(e, String.class);
+        }
+
+        return resultDTO;
+    }
+
 }
