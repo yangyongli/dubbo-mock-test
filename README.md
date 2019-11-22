@@ -9,6 +9,7 @@
 - 修改dubbo接口调用方式，修改成netty4支持的nettyclient调用，
 - 修复nettyclient#send与主线程不同步，无法及时注册channelHanlder问题（通过sleep，后续有待优化）
 - 修复极简模式telnet调用方式返回结果BUG问题。
+- 修复重启起动后用例模式无法调用问题。
 
 以上问题可能是因为修改springboot与dubbo版本引起的，欢迎相互沟通（wo4yyl@163.com）
 
