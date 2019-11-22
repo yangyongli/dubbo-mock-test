@@ -184,9 +184,15 @@
                         <div class="row">
                             <div class="clearfix form-actions">
                                 <div class="col-md-offset-3 col-md-9">
+                                    <button class="btn btn-info" type="button" onclick="doDirectSend();">
+                                        <i class="icon-ok bigger-110"></i>
+                                        直连方式发送
+                                    </button>
+
+                                    &nbsp; &nbsp; &nbsp;
                                     <button class="btn btn-info" type="button" onclick="doSend();">
                                         <i class="icon-ok bigger-110"></i>
-                                        发送
+                                        Telnet方式发送
                                     </button>
 
                                     &nbsp; &nbsp; &nbsp;
@@ -249,6 +255,45 @@
         }
         var params = {"conn": conn, "json": json, "serviceName": serviceName, "methodName": methodName};
         Nora.Ajax("/doe/dubbo/doSendWithTelnet", params, function (data) {
+
+            if (data.success && null != data.data && data.data.length > 0) {
+
+                // on success
+                $("#txtResult").val(data.data); // clear
+
+            } else {
+                // on fail
+                bootbox.alert(null == data ? "操作失败！" : data.msg);
+            }
+
+        }, function (data) {
+            // on error
+            bootbox.alert(null == data ? "操作异常!" : data.msg);
+        });
+
+    }
+
+    function doDirectSend() {
+
+        var conn = $("#txtConnect").val();
+        var serviceName = $("#txtInterfaces").val();
+        var methodName = $("#txtMethods").val();
+        var json = $("#txtParams").val();
+
+        if (null == conn || conn.length <= 0) {
+            return;
+        }
+        if (null == serviceName || serviceName.length <= 0) {
+            return;
+        }
+        if (null == methodName || methodName.length <= 0) {
+            return;
+        }
+        if (null == json || json.length <= 0) {
+            return;
+        }
+        var params = {"conn": conn, "json": json, "serviceName": serviceName, "methodName": methodName};
+        Nora.Ajax("/doe/dubbo/doDirectSend", params, function (data) {
 
             if (data.success && null != data.data && data.data.length > 0) {
 
